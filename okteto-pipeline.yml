@@ -1,3 +1,4 @@
 deploy:
-  #- okteto build -t okteto.dev/hello-world:latest
-  - kubectl apply -f release
+  - helm repo add jenkins https://charts.jenkins.io
+  - helm repo update
+  - helm upgrade --install myjenkins jenkins/jenkins
