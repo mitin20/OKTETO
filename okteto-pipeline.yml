@@ -3,4 +3,4 @@ deploy:
   #- helm repo update
   #- helm upgrade --install myjenkins jenkins/jenkins --values values.yaml
   - helm repo add bitnami https://charts.bitnami.com/bitnami
-  - helm upgrade --install my-release bitnami/jenkins --set persistence.size="2Gi"
+  - helm upgrade --install my-release bitnami/jenkins --set jenkinsPassword="${password}" --set persistence.size="2Gi"
