@@ -4,4 +4,3 @@ deploy:
   #- helm upgrade --install myjenkins jenkins/jenkins --values values.yaml
   - helm repo add bitnami https://charts.bitnami.com/bitnami
   - helm upgrade --install my-release bitnami/jenkins --set jenkinsPass--set persistence.size="2Gi"
-  - echo Password: $(kubectl get secret --namespace mitin20 jenkins -o jsonpath="{.data.jenkins-password}" | base64 --decode)
