@@ -1,4 +1,6 @@
 deploy:
-  - helm repo add jenkins https://charts.jenkins.io
-  - helm repo update
-  - helm upgrade --install myjenkins jenkins/jenkins --values values.yaml
+  #- helm repo add jenkins https://charts.jenkins.io
+  #- helm repo update
+  #- helm upgrade --install myjenkins jenkins/jenkins --values values.yaml
+  - helm repo add bitnami 
+  - helm install my-release bitnami/jenkins
