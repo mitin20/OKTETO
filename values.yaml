@@ -640,8 +640,8 @@ agent:
       cpu: "512m"
       memory: "512Mi"
     limits:
-      cpu: "512m"
-      memory: "512Mi"
+      cpu: "1024m"
+      memory: "1024Mi"
   # You may want to change this to true while testing a new image
   alwaysPullImage: false
   # Controls how agent pods are retained after the Jenkins build completes
@@ -931,8 +931,8 @@ backup:
       memory: 1Gi
       cpu: 1
     limits:
-      memory: 1Gi
-      cpu: 1
+      memory: 2Gi
+      cpu: 2
   # Destination to store the backup artifacts
   # Supported cloud storage services: AWS S3, Minio S3, Azure Blob Storage, Google Cloud Storage
   # Additional support can added. Visit this repository for details
