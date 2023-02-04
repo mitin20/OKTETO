@@ -1,21 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: memeapp-deployment
-  labels:
-    app: memeapp
+  name: reddit-memes
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: memeapp
+      app: reddit-memes
   template:
     metadata:
       labels:
-        app: memeapp
+        app: reddit-memes
     spec:
       containers:
-      - name: memeapp
+      - name: reddit-memes
         image: okteto.dev/meme-app:latest
         ports:
         - containerPort: 5000
@@ -23,12 +21,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: memeapp-service
+  name: reddit-memes
 spec:
-  type: NodePort
   selector:
-    app: memeapp
+    app: reddit-memes
   ports:
-  - protocol: TCP
-    port: 80
+  - name: http
+    port: 5000
     targetPort: 5000
+  type: ClusterIP

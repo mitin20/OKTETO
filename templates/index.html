@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Reddit Memes</title>
+  </head>
+  <body>
+    <h1>Reddit Memes</h1>
+    <ul>
+      {% for meme in memes %}
+        <li>{{ meme['data']['title'] }}</li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>

@@ -1,22 +1,15 @@
-import json
-import flask
-from flask import Flask 
+from flask import Flask, render_template
+import requests
 
 app = Flask(__name__)
 
-@app.route('/memes/api')
+@app.route('/memes')
 def get_memes():
-    url = "https://www.reddit.com/r/memes/top.json?t=week"
-    response = requests.get(url, headers={'User-agent': 'your bot 0.1'})
-    if response.status_code == 200:
-        data = response.json()
-        memes = []
-
-        for item in data['data']['children']:
-            meme = item['data']
-            memes.append(meme)
-
-        return json.dumps(memes)
+    url = 'https://www.reddit.com/r/Memes/new/.json'
+    headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.97 Safari/537.36'}
+    response = requests.get(url, headers=headers)
+    memes = response.json()['data']['children']
+    return render_template('index.html', memes=memes)
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)

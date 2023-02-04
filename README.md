@@ -80,3 +80,40 @@ spec:
         ports:
         - containerPort: 5000
           protocol: TCP
+
+get requirements.txt for pip install -r flask and jsonify
+
+Flask==1.1.2
+requests==2.25.0
+
+######################## For Locall ######################################
+how to run above python app locally
+
+Create a virtual environment:
+python -m venv venv
+
+Activate the virtual environment:
+. venv/bin/activate
+
+Install the required packages:
+pip install -r requirements.txt
+
+Run the app:
+python app.py
+
+Visit http://localhost:5000/memes
+
+fix mac error No module named venv using brew
+brew install python3
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+python app.py
+Visit http://localhost:5000/memes
+
+get requirements.txt for pip install requests
+requests
+
+
+
+
