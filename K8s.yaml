@@ -30,7 +30,7 @@ spec:
     spec:
       containers:
       - name: webapp
-        image: webapp-image
+        image: okteto.dev/meme-app:latest
         ports:
         - containerPort: 5000
           protocol: TCP
