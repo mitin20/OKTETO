@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Reddit Memes</title>
-  </head>
-  <body>
-    <h1>Reddit Memes</h1>
+<head>
+    <title>Memes from Reddit</title>
+</head>
+<body>
+    <h1>Memes from Reddit</h1>
     <ul>
-      {% for meme in memes %}
-        <li>{{ meme['data']['title'] }}</li>
-      {% endfor %}
+        {% for meme in memes %}
+        <li>
+            <p><a href="{{ meme.data.url }}">{{ meme.data.title }}</a></p>
+            <img src="{{ meme.data.url }}" alt="{{ meme.data.title }}">
+        </li>
+        {% endfor %}
     </ul>
-  </body>
+</body>
 </html>
