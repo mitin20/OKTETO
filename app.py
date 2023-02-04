@@ -3,7 +3,7 @@ import requests
 
 app = Flask(__name__, template_folder='templates')
 
-@app.route('/memes')
+@app.route('/')
 def get_memes():
     url = 'https://www.reddit.com/r/Memes/new/.json'
     headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.97 Safari/537.36'}
