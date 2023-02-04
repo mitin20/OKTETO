@@ -1,11 +1,11 @@
-FROM python:alpine
+FROM python:3.7 
+
+COPY . /app
 
 WORKDIR /app
 
-COPY . .
+RUN pip3 install -r requirements.txt
 
-RUN pip install -r requirements.txt
+ENTRYPOINT ["python3"]
 
-EXPOSE 5000
-
-CMD ["python", "app.py"]
+CMD ["app.py"]
