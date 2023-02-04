@@ -1,5 +1,3 @@
-#Python web app
-
 import json
 import flask
 from flask import Flask 
