@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <title>Reddit Memes</title>
+</head>
+<body>
+  <div class="container">
+    <h1>Reddit Memes</h1>
+    {% for meme in memes %}
+    <div class="row">
+      <div class="col-md-4">
+        <img src="{{ meme.data.thumbnail }}" alt="Meme thumbnail">
+      </div>
+      <div class="col-md-8">
+        <h2>{{ meme.data.title }}</h2>
+        <p>{{ meme.data.selftext }}</p>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</body>
+</html>

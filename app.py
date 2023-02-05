@@ -1,25 +1,15 @@
-#!/bin/python
-
 from flask import Flask, render_template
 import requests
-import json
 
 app = Flask(__name__)
 
-def get_meme():
-    #Uncomment these two lines and comment out the other url line if yo
-    # sr = "/wholesomememes"
-    # url = "https://meme-api.herokuapp.com/gimme" + sr
-    url = "https://meme-api.herokuapp.com/gimme"
-    response = json.loads (requests.request("GET", url).text)
-    meme_large = response["preview"][-2]
-    subreddit = response["subreddit"]
-    return meme_large, subreddit
-
-@app.route("/")
+@app.route('/')
 def index():
-    meme_pic,subreddit = get_meme()
-    return render_template("meme_index.html", meme_pic=meme_pic, subreddit=subreddit)
+    url = "https://www.reddit.com/r/memes/new/.json"
+    res = requests.get(url, headers={'User-agent': 'Mozilla/5.0'})
+    memes = res.json()["data"]["children"]
+    return render_template('index.html', memes=memes)
 
-app.run (host="0.0.0.0", port=80)
-#app.run(debug=True)
+if __name__ == '__main__':
+    #app.run(debug=True)
+    app.run(host="0.0.0.0", port=5000)

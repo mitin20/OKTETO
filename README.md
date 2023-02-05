@@ -2,9 +2,9 @@
 #AIAC Create python web app to get Reddit Meme API using flask and give a Dockerfile and K8s manifest
 
 
-Create python web app with index.html to get and show Reddit Meme API using flask and give a Dockerfile and K8s manifest
+Create python web app with styled index.html to get and show Reddit Meme API using flask and give a Dockerfile and K8s manifest
 ChatGPT
-Here is a sample code for the Flask application to retrieve the Reddit Meme API and display it in an HTML template:
+Here's a basic template for the web app using flask and bootstrap for styling:
 
 Copy
 Insert
@@ -12,52 +12,58 @@ New
 from flask import Flask, render_template
 import requests
 
-app = Flask(__name__, template_folder='templates')
+app = Flask(__name__)
 
-@app.route('/memes')
-def get_memes():
-    url = 'https://www.reddit.com/r/Memes/new/.json'
-    headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.97 Safari/537.36'}
-    response = requests.get(url, headers=headers)
-    memes = response.json()['data']['children']
+@app.route('/')
+def index():
+    url = "https://www.reddit.com/r/memes/new/.json"
+    res = requests.get(url, headers={'User-agent': 'Mozilla/5.0'})
+    memes = res.json()["data"]["children"]
     return render_template('index.html', memes=memes)
 
 if __name__ == '__main__':
     app.run(debug=True)
-Here is the HTML template (templates/index.html) to display the memes:
+Here's a simple index.html file using bootstrap:
 
 Copy
 Insert
 New
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Memes from Reddit</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <title>Reddit Memes</title>
 </head>
 <body>
-    <h1>Memes from Reddit</h1>
-    <ul>
-        {% for meme in memes %}
-        <li>
-            <p><a href="{{ meme.data.url }}">{{ meme.data.title }}</a></p>
-            <img src="{{ meme.data.url }}" alt="{{ meme.data.title }}">
-        </li>
-        {% endfor %}
-    </ul>
+  <div class="container">
+    <h1>Reddit Memes</h1>
+    {% for meme in memes %}
+    <div class="row">
+      <div class="col-md-4">
+        <img src="{{ meme.data.thumbnail }}" alt="Meme thumbnail">
+      </div>
+      <div class="col-md-8">
+        <h2>{{ meme.data.title }}</h2>
+        <p>{{ meme.data.selftext }}</p>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
 </body>
 </html>
-And here is the Dockerfile to build an image for the Flask application:
+Here's a Dockerfile that packages the app as a Docker image:
 
 Copy
 Insert
 New
-FROM python:3.9-alpine
+FROM python:3.8
+COPY . /app
 WORKDIR /app
-COPY . .
-RUN pip install -r requirements.txt
-EXPOSE 5000
+RUN pip install --no-cache-dir -r requirements.txt
 CMD ["python", "app.py"]
-Finally, here is an example Kubernetes manifest to deploy the Flask application:
+And here's a simple k8s-manifest.yml to deploy this app on a Kubernetes cluster:
 
 Copy
 Insert
@@ -65,41 +71,43 @@ New
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: reddit-memes-app
+  name: reddit-memes
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: reddit-memes-app
+      app: reddit-memes
   template:
     metadata:
       labels:
-        app: reddit-memes-app
+        app: reddit-memes
     spec:
       containers:
-        - name: reddit-memes-app
-          image: <your_image_name>
-          ports:
-            - containerPort: 5000
+      - name: reddit-memes
+        image: <your-docker-image>
+        ports:
+        - containerPort: 5000
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: reddit-memes-app
+  name: reddit-memes
 spec:
   selector:
-    app: reddit-memes-app
+    app: reddit-memes
   ports:
-    - name: http
-      port: 5000
-      targetPort: 5000
+  - name: http
+    port: 5000
+    targetPort: 5000
   type: ClusterIP
-Note: Don't forget to replace <your_image_name> in the Kubernetes manifest with the actual image name of your Docker image.
+This is just a basic example to get you started. You can customize it further based on your needs.
 
 get requirements.txt for pip install -r flask and jsonify
 
-Flask==1.1.2
-requests==2.25.0
+# Requirements.txt
+Flask>=1.1.2
+requests
+jsonify
 
 ######################## For Locall ######################################
 how to run above python app locally
